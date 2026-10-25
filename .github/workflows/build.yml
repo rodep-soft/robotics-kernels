@@ -22,6 +22,10 @@ jobs:
         target: [x86_64-ubuntu2604]
 
     steps:
+      - name: Cleanup previous root-owned artifacts
+        run: |
+          docker run --rm -v "$PWD:/workspace" ubuntu:24.04 bash -c "chown -R $(id -u):$(id -g) /workspace 2>/dev/null || true" || true
+
       - name: Checkout repository
         uses: actions/checkout@v4
 
@@ -44,7 +48,8 @@ jobs:
                 libncurses-dev libelf-dev libssl-dev dwarves rsync \
                 debhelper libdw-dev zstd wget xz-utils patch git \
                 gawk pkg-config python3 ca-certificates && \
-              bash ./build.sh ${{ matrix.target }}
+              bash ./build.sh ${{ matrix.target }} && \
+              chown -R $(id -u):$(id -g) /workspace
             "
 
       - name: Upload artifacts
