@@ -4,6 +4,12 @@ on:
   push:
     tags:
       - 'v*'
+    branches:
+      - main
+    paths:
+      - '**/config*'
+      - '**/.config'
+      - 'build.sh'
   workflow_dispatch:
 
 jobs:
