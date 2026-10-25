@@ -42,7 +42,8 @@ jobs:
               apt-get update && \
               apt-get install -y build-essential bc kmod cpio flex bison \
                 libncurses-dev libelf-dev libssl-dev dwarves rsync \
-                debhelper libdw-dev zstd wget xz-utils patch git && \
+                debhelper libdw-dev zstd wget xz-utils patch git \
+                gawk pkg-config python3 ca-certificates && \
               bash ./build.sh ${{ matrix.target }}
             "
 
